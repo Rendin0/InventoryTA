@@ -1,23 +1,24 @@
-using System.Collections.Generic;
+
 using System.Linq;
 
-public class CmdRemoveItemHandler : ICommandHandler<CmdRemoveItem>
+public class CmdRemoveItemFromSlotHandler : ICommandHandler<CmdRemoveItemFromSlot>
 {
     private readonly GameStateProxy _gameStateProxy;
 
-    public CmdRemoveItemHandler(GameStateProxy gameStateProxy)
+    public CmdRemoveItemFromSlotHandler(GameStateProxy gameStateProxy)
     {
         _gameStateProxy = gameStateProxy;
     }
 
-    public bool Handle(CmdRemoveItem command)
+    public bool Handle(CmdRemoveItemFromSlot command)
     {
         var inventoryProxy = _gameStateProxy.InventoryProxy;
-        var slotProxy = inventoryProxy.InventorySlotProxies.FirstOrDefault(slot => slot.ItemId.Value == command.ItemId);
 
-        // Если слот с таким предметом не был найден
-        if (slotProxy == null)
+        // Попытка удалить предмет из слота за пределами инвентаря
+        if (command.SlotIndex >= inventoryProxy.InventorySlotProxies.Count)
             return false;
+
+        var slotProxy = inventoryProxy.InventorySlotProxies[command.SlotIndex];
 
         slotProxy.ItemAmount.Value -= command.ItemAmount;
 

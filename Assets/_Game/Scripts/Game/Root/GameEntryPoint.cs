@@ -1,9 +1,9 @@
 ﻿using Assets._Game.Scripts.Common;
 using Assets._Game.Scripts.Game.Gameplay.Root;
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using R3;
 
 namespace Assets._Game.Scripts.Game.Root
 {
@@ -30,6 +30,9 @@ namespace Assets._Game.Scripts.Game.Root
 
             IConfigProvider configProvider = new LocalConfigProvider();
             _rootContainer.RegisterInstance(configProvider);
+
+            IGameStateProvider gameStateProvider = new PlayerPrefsGameStateProvider();
+            _rootContainer.RegisterInstance(gameStateProvider);
         }
 
         private async void Run()
@@ -44,8 +47,10 @@ namespace Assets._Game.Scripts.Game.Root
             yield return LoadScene(SceneNames.Boot);
             yield return LoadScene(SceneNames.Gameplay);
 
-            // Пропуск кадра, ибо новая сцена может загрузиться до выгрузки старой
-            yield return null;
+            // GameState может подгружаться из облака, так что необходимо ожидать завершения
+            var isGameStateLoaded = false;
+            _rootContainer.Resolve<IGameStateProvider>().LoadGameState().Subscribe(_ => isGameStateLoaded = true);
+            yield return new WaitUntil(() => isGameStateLoaded);
 
             var sceneContaiener = new DIContainer(_rootContainer);
 
