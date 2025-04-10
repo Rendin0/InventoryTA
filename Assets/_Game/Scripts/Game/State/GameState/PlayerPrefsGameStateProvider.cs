@@ -45,6 +45,10 @@ public class PlayerPrefsGameStateProvider : IGameStateProvider
         {
             InventoryModel = new(),
         };
+        for (int i = 0; i < 20; i++)
+        {
+            _gameStateOrigin.InventoryModel.InventorySlots.Add(new());
+        }
 
         return new GameStateProxy(_gameStateOrigin);
     }

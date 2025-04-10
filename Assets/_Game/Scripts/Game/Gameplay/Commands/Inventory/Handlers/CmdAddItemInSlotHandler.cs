@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class CmdAddItemInSlotHandler : ICommandHandler<CmdAddItemInSlot>
 {
-    private readonly Dictionary<string, ItemConfig> _itemConfigs;
+    private readonly Dictionary<string, ItemConfig> _itemConfigs = new();
     private readonly GameStateProxy _gameStateProxy;
 
     public CmdAddItemInSlotHandler(GameStateProxy gameStateProxy, ItemsConfig itemsConfig)

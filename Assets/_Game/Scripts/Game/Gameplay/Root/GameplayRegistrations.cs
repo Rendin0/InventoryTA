@@ -2,10 +2,11 @@ public static class GameplayRegistrations
 {
     public static void Register(DIContainer sceneContainer)
     {
-        var commandProcessor = new CommandProcessor();
 
         var itemsConfig = sceneContainer.Resolve<IConfigProvider>().GameConfig.ItemsConfig;
-        var gameStateProxy = sceneContainer.Resolve<IGameStateProvider>().GameStateProxy;
+        var gameStateProvider = sceneContainer.Resolve<IGameStateProvider>();
+        var gameStateProxy = gameStateProvider.GameStateProxy;
+        var commandProcessor = new CommandProcessor(gameStateProvider);
 
         commandProcessor.RegisterHandler(new CmdAddItemHandler(gameStateProxy, itemsConfig, commandProcessor));
         commandProcessor.RegisterHandler(new CmdAddItemInSlotHandler(gameStateProxy, itemsConfig));

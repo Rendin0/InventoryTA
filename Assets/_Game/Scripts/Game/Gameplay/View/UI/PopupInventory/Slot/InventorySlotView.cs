@@ -14,8 +14,17 @@ public class InventorySlotView : MonoBehaviour
     {
         ViewModel = viewModel;
 
-        ViewModel.IconPath.Subscribe(path => _itemIcon.sprite = Resources.Load<Sprite>(path));
+        ViewModel.IconPath.Subscribe(path => ChangeIcon(path));
 
         ViewModel.ItemAmount.Subscribe(amount => _itemAmountText.text = amount);
+    }
+
+    private void ChangeIcon(string path)
+    {
+        _itemIcon.sprite = Resources.Load<Sprite>(path);
+        if (_itemIcon.sprite == null)
+            _itemIcon.color = Color.clear;
+        else
+            _itemIcon.color = Color.white;
     }
 }

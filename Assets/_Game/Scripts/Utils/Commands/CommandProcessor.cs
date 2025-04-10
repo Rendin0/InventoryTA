@@ -5,7 +5,13 @@ using UnityEngine;
 
 public class CommandProcessor : ICommandProcessor
 {
+    private readonly IGameStateProvider _gameStateProvider;
     private readonly Dictionary<Type, object> handlersMap = new();
+
+    public CommandProcessor(IGameStateProvider gameStateProvider)
+    {
+        this._gameStateProvider = gameStateProvider;
+    }
 
     public bool Process<TCommand>(TCommand command) where TCommand : ICommand
     {
@@ -14,6 +20,11 @@ public class CommandProcessor : ICommandProcessor
             var typedHandler = (ICommandHandler<TCommand>)handler;
 
             var result = typedHandler.Handle(command);
+
+            if (result)
+            {
+                _gameStateProvider.SaveGameState();
+            }
 
             return result;
         }

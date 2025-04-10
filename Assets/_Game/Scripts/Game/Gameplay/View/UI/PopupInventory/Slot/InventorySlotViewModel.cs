@@ -12,7 +12,7 @@ public class InventorySlotViewModel
     {
         SlotProxy = slotProxy;
 
-        SlotProxy.ItemId.Subscribe(id => IconPath.OnNext($"UI/Items/Item_{id}"));
+        SlotProxy.ItemId.Subscribe(id => IconPath.OnNext($"UI/Items/{id}"));
 
         // Если кол-во предмета в слоте 1 или меньше, то скрываем текст для красоты
         SlotProxy.ItemAmount.Subscribe(amount => ItemAmount.OnNext(amount < 2 ? "" : amount.ToString()));

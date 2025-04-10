@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class CmdAddItemHandler : ICommandHandler<CmdAddItem>
 {
-    private readonly Dictionary<string, ItemConfig> _itemConfigs;
+    private readonly Dictionary<string, ItemConfig> _itemConfigs = new();
     private readonly GameStateProxy _gameStateProxy;
     private readonly ICommandProcessor _processor;
 

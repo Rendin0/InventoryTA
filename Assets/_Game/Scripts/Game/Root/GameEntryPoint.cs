@@ -7,7 +7,7 @@ using R3;
 
 namespace Assets._Game.Scripts.Game.Root
 {
-    public class GameEntryPoint : MonoBehaviour
+    public class GameEntryPoint
     {
         private static GameEntryPoint _instance;
 

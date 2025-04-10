@@ -9,10 +9,21 @@ public class GameplayUIManager : UIManager
     public PopupInventoryViewModel OpenPopupInventory()
     {
         var gameStateProxy = Container.Resolve<IGameStateProvider>().GameStateProxy;
-        var viewModel = new PopupInventoryViewModel(gameStateProxy.InventoryProxy);
+        var inventoryService = Container.Resolve<InventoryService>();
+        var viewModel = new PopupInventoryViewModel(gameStateProxy.InventoryProxy, inventoryService);
 
         var sceneUI = Container.Resolve<GameplaySceneUIViewModel>();
         sceneUI.OpenPopup(viewModel);
+
+        return viewModel;
+    }
+
+    public ScreenGameplayViewModel OpenScreenGameplay()
+    {
+        var viewModel = new ScreenGameplayViewModel();
+
+        var sceneUI = Container.Resolve<GameplaySceneUIViewModel>();
+        sceneUI.OpenScreen(viewModel);
 
         return viewModel;
     }

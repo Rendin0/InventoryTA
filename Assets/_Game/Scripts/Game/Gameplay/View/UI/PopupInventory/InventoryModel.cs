@@ -5,5 +5,5 @@ using System.Collections.Generic;
 [Serializable]
 public class InventoryModel
 {
-    public List<InventorySlotModel> InventorySlots;
+    public List<InventorySlotModel> InventorySlots = new();
 }

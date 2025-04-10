@@ -9,10 +9,13 @@ public class PopupInventoryViewModel : WindowViewModel
     public ObservableList<InventorySlotViewModel> SlotViewModels { get; } = new();
 
     private readonly InventoryProxy _inventoryProxy;
+    private readonly InventoryService _inventoryService;
 
-    public PopupInventoryViewModel(InventoryProxy inventoryProxy)
+    #region Data Binding
+    public PopupInventoryViewModel(InventoryProxy inventoryProxy, InventoryService inventoryService)
     {
         _inventoryProxy = inventoryProxy;
+        _inventoryService = inventoryService;
 
         _inventoryProxy.InventorySlotProxies.ForEach(slotProxy => CreateSlotViewModel(slotProxy));
 
@@ -24,7 +27,6 @@ public class PopupInventoryViewModel : WindowViewModel
     {
         SlotViewModels.Add(new(slotProxy));
     }
-
     private void DeleteSlotViewModel(InventorySlotProxy slotProxy)
     {
         // Ќе нужны проверки на null, т.к. есть гаранти€, что
@@ -32,5 +34,29 @@ public class PopupInventoryViewModel : WindowViewModel
         var slotViewModel = SlotViewModels.First(slot => slotProxy == slot.SlotProxy);
         SlotViewModels.Remove(slotViewModel);
     }
+    #endregion
+
+    #region Button Callbacks
+    public void AddItem(string ItemId)
+    {
+        _inventoryService.AddItem(ItemId);
+    }
+
+    public void RemoveItem(string ItemId)
+    {
+        _inventoryService.RemoveItem(ItemId);
+    }
+
+    public void AddSlot()
+    {
+        _inventoryService.AddSlot();
+    }
+
+    public void RemoveSlot()
+    {
+        _inventoryService.RemoveSlot();
+    }
+
+    #endregion
 
 }
