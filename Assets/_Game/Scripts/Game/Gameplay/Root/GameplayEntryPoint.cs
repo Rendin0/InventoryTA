@@ -11,6 +11,8 @@ namespace Assets._Game.Scripts.Game.Gameplay.Root
             _sceneContainer = sceneContaiener;
             GameplayRegistrations.Register(_sceneContainer);
 
+            var uiManager = _sceneContainer.Resolve<GameplayUIManager>();
+            uiManager.OpenPopupInventory();
         }
     }
 }

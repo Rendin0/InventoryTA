@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class UIRootViewModel : IDisposable
+public class SceneUIViewModel : IDisposable
 {
     public Observable<WindowViewModel> OpenedScreen => _openedScreen;
     public IObservableCollection<WindowViewModel> OpenedPopups => _openedPopups;

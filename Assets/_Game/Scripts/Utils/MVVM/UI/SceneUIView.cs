@@ -3,13 +3,13 @@ using ObservableCollections;
 using R3;
 using UnityEngine;
 
-public class UIRootView : MonoBehaviour
+public class SceneUIView : MonoBehaviour
 {
     [SerializeField] private WindowsContainer _windowsContainer;
 
     private readonly CompositeDisposable _subscriptions = new();
 
-    public void Bind(UIRootViewModel viewModel)
+    public void Bind(SceneUIViewModel viewModel)
     {
         _subscriptions.Add(viewModel.OpenedScreen.Subscribe(newScreenViewModel =>
         {
@@ -35,7 +35,7 @@ public class UIRootView : MonoBehaviour
         OnBind(viewModel);
     }
 
-    protected virtual void OnBind(UIRootViewModel rootViewModel) { }
+    protected virtual void OnBind(SceneUIViewModel rootViewModel) { }
 
     private void OnDestroy()
     {

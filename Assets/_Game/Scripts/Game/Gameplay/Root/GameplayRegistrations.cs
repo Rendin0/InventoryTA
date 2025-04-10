@@ -17,6 +17,9 @@ public static class GameplayRegistrations
         sceneContainer.RegisterFactory(_ => new InventoryService(commandProcessor)).AsSingle();
 
         sceneContainer.RegisterInstance<ICommandProcessor>(commandProcessor);
+
+        sceneContainer.RegisterFactory(_ => new GameplayUIManager(sceneContainer)).AsSingle();
+        sceneContainer.RegisterFactory(_ => new GameplaySceneUIViewModel()).AsSingle();
     }
 
 }

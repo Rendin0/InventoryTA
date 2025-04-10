@@ -22,11 +22,17 @@ namespace Assets._Game.Scripts.Game.Root
 
         private readonly DIContainer _rootContainer = new();
         private readonly Coroutines _coroutines;
+        private readonly UIRootView _uiRoot;
 
         private GameEntryPoint()
         {
             _coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
+
+            var prefabUIRoot = Resources.Load<UIRootView>("UI/UIRoot");
+            _uiRoot = Object.Instantiate(prefabUIRoot);
+            Object.DontDestroyOnLoad(_uiRoot.gameObject);
+            _rootContainer.RegisterInstance(_uiRoot);
 
             IConfigProvider configProvider = new LocalConfigProvider();
             _rootContainer.RegisterInstance(configProvider);
@@ -44,6 +50,8 @@ namespace Assets._Game.Scripts.Game.Root
 
         private IEnumerator StartGameplay()
         {
+            _uiRoot.ShowLoadingScreen();
+
             yield return LoadScene(SceneNames.Boot);
             yield return LoadScene(SceneNames.Gameplay);
 
@@ -57,6 +65,7 @@ namespace Assets._Game.Scripts.Game.Root
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
             sceneEntryPoint.Run(sceneContaiener);
 
+            _uiRoot.HideLoadingScreen();
         }
 
         private IEnumerator LoadScene(string sceneName)
