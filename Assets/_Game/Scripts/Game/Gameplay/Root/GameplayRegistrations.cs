@@ -4,8 +4,10 @@ public static class GameplayRegistrations
     {
         var commandProcessor = new CommandProcessor();
 
-        commandProcessor.RegisterHandler(new CmdAddItemHandler());
-        commandProcessor.RegisterHandler(new CmdRemoveItemHandler());
+        var itemsConfig = sceneContainer.Resolve<IConfigProvider>().GameConfig.ItemsConfig;
+        
+        commandProcessor.RegisterHandler(new CmdAddItemHandler(itemsConfig, commandProcessor));
+        commandProcessor.RegisterHandler(new CmdRemoveItemHandler(itemsConfig));
 
         sceneContainer.RegisterFactory(_ => new InventoryService(commandProcessor)).AsSingle();
 

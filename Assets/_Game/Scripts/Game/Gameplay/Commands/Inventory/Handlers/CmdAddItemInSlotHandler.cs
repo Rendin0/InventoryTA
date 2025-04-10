@@ -1,16 +1,18 @@
 using System.Collections.Generic;
 
-public class CmdRemoveItemHandler : ICommandHandler<CmdRemoveItem>
+public class CmdAddItemInSlotHandler : ICommandHandler<CmdAddItemInSlot>
 {
     private readonly Dictionary<string, ItemConfig> _itemConfigs;
 
-    public CmdRemoveItemHandler(ItemsConfig itemsConfig)
+    public CmdAddItemInSlotHandler(ItemsConfig itemsConfig)
     {
         itemsConfig.ItemConfigs.ForEach(config => _itemConfigs.Add(config.ItemId, config));
     }
 
-    public bool Handle(CmdRemoveItem command)
+    public bool Handle(CmdAddItemInSlot command)
     {
+
+
         return true;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Assets._Game.Scripts.Common;
 using Assets._Game.Scripts.Game.Gameplay.Root;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,11 +28,14 @@ namespace Assets._Game.Scripts.Game.Root
             _coroutines = new GameObject("[COROUTINES]").AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
 
-
+            IConfigProvider configProvider = new LocalConfigProvider();
+            _rootContainer.RegisterInstance(configProvider);
         }
 
-        private void Run()
+        private async void Run()
         {
+            await _rootContainer.Resolve<IConfigProvider>().LoadGameConfig();
+
             _coroutines.StartCoroutine(StartGameplay());
         }
 

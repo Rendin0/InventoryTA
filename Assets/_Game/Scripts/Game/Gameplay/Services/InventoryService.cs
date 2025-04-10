@@ -5,8 +5,6 @@ public class InventoryService
     public InventoryService(ICommandProcessor commandProcessor)
     {
         _processor = commandProcessor;
-
-
     }
 
     public bool AddItem(string itemId, int amount = 1)
