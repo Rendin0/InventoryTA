@@ -54,6 +54,7 @@ public class PopupInventoryView : PopupView<PopupInventoryViewModel>
         // если существует viewModel, то и существует view слота
         var slotView = _slots.First(slotView => slotViewModel == slotView.ViewModel);
         _slots.Remove(slotView);
+        Destroy(slotView.gameObject);
     }
     #endregion
 

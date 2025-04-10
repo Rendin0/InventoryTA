@@ -12,6 +12,7 @@ public class InventorySlotView : MonoBehaviour
 
     public void Bind(InventorySlotViewModel viewModel)
     {
+        transform.localScale = Vector3.one;
         ViewModel = viewModel;
 
         ViewModel.IconPath.Subscribe(path => ChangeIcon(path));
@@ -21,6 +22,9 @@ public class InventorySlotView : MonoBehaviour
 
     private void ChangeIcon(string path)
     {
+        if (_itemIcon == null)
+            return;
+
         _itemIcon.sprite = Resources.Load<Sprite>(path);
         if (_itemIcon.sprite == null)
             _itemIcon.color = Color.clear;
