@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class WindowBinder<T> : MonoBehaviour, IWindowBinder where T : WindowViewModel
+public abstract class WindowView<T> : MonoBehaviour, IWindowView where T : WindowViewModel
 {
     protected T ViewModel;
 

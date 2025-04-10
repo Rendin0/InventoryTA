@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class PopupBinder<T> : WindowBinder<T> where T : WindowViewModel
+public abstract class PopupView<T> : WindowView<T> where T : WindowViewModel
 {
     [SerializeField] protected Button _btnClose;
     [SerializeField] protected Button _btnCloseAlt;

@@ -6,15 +6,15 @@ public class WindowsContainer : MonoBehaviour
     [SerializeField] private Transform _screensContainer;
     [SerializeField] private Transform _popupsContainer;
 
-    private readonly Dictionary<WindowViewModel, IWindowBinder> _openedPopupBinders = new();
-    private IWindowBinder _openedScreenBinder;
+    private readonly Dictionary<WindowViewModel, IWindowView> _openedPopupBinders = new();
+    private IWindowView _openedScreenBinder;
 
     public void OpenPopup(WindowViewModel viewModel)
     {
         var prefabPath = GetPrefabPath(viewModel);
         var prefab = Resources.Load<GameObject>(prefabPath);
         var createdPopup = Instantiate(prefab, _popupsContainer);
-        var binder = createdPopup.GetComponent<IWindowBinder>();
+        var binder = createdPopup.GetComponent<IWindowView>();
 
         binder.Bind(viewModel);
         _openedPopupBinders.Add(viewModel, binder);
@@ -40,7 +40,7 @@ public class WindowsContainer : MonoBehaviour
         var prefabPath = GetPrefabPath(viewModel);
         var prefab = Resources.Load<GameObject>(prefabPath);
         var createdScreen = Instantiate(prefab, _screensContainer);
-        var binder = createdScreen.GetComponent<IWindowBinder>();
+        var binder = createdScreen.GetComponent<IWindowView>();
 
         binder.Bind(viewModel);
         _openedScreenBinder = binder;

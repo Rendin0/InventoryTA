@@ -3,7 +3,7 @@ using ObservableCollections;
 using R3;
 using UnityEngine;
 
-public class UIRootBinder : MonoBehaviour
+public class UIRootView : MonoBehaviour
 {
     [SerializeField] private WindowsContainer _windowsContainer;
 

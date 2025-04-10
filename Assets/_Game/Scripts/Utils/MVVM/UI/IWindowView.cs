@@ -1,4 +1,4 @@
-﻿public interface IWindowBinder
+﻿public interface IWindowView
 {
     void Bind(WindowViewModel viewModel);
 
